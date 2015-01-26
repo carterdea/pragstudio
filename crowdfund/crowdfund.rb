@@ -1,11 +1,12 @@
 require_relative 'project'
 require_relative 'collection'
 require_relative 'die'
+require_relative 'update_funding'
 
-project1 = Project.new("ABC", 1000, 3000)
-project2 = Project.new("LMN", 2000, 4000)
-project3 = Project.new("XYZ", 30, 90)
-project4 = Project.new("DEF")
+project1 = Project.new('ABC', 1000, 3000)
+project2 = Project.new('LMN', 2000, 4000)
+project3 = Project.new('XYZ', 30, 90)
+project4 = Project.new('DEF')
 
 projects = [project1, project2, project3]
 
@@ -20,21 +21,9 @@ projects = [project1, project2, project3]
 puts "There are #{projects.length} projects on Crowdfunder:"
 
 projects.each do |project|
-	die = Die.new
-	case die.roll
-	when 1..2
-		project.add_funds(100)
-	when 3..4
-		puts "#{project.name} was skipped."
-	else
-		project.subtract_funds(50)
-	end
+  UpdateFunding.user_updates(project)
 
-	if project.amt_remaining <= 0
-		puts "Project #{project.name} is fully funded!"
-	else
-		puts "Project #{project.name} needs to raise $#{project.amt_remaining} to reach it's goal."
-	end
+  UpdateFunding.funding_status(project)
 end
 
 projects.pop
@@ -42,10 +31,10 @@ puts projects
 
 projects.push(project4)
 # projects.each do |p|
-# 	puts p.name
+#   puts p.name
 # end
 
-collection = Collection.new("vc-friendly")
+collection = Collection.new('vc-friendly')
 
 collection.add_project(project1)
 collection.add_project(project2)
