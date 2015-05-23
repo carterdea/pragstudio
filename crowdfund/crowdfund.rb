@@ -10,14 +10,6 @@ project4 = Project.new('DEF')
 
 projects = [project1, project2, project3]
 
-# puts project1
-# puts project1.add_funds(20)
-# puts project1
-# puts project1.subtract_funds(50)
-# puts project1
-
-# puts "Project #{project1.name} needs to raise $#{project1.amt_remaining} to reach it's goal."
-
 puts "There are #{projects.length} projects on Crowdfunder:"
 
 projects.each do |project|
@@ -30,9 +22,6 @@ projects.pop
 puts projects
 
 projects.push(project4)
-# projects.each do |p|
-#   puts p.name
-# end
 
 collection = Collection.new('vc-friendly')
 
