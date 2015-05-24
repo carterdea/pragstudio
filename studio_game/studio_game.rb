@@ -1,18 +1,38 @@
-def time
-  current_time = Time.new
-  current_time.strftime("%l:%M:%S")
-end
+require_relative 'player'
+require_relative 'game'
 
-def say_hello(name, health=100)
-  "I'm #{name.capitalize} with a health of #{health} as of #{time}."
-end
+player1 = Player.new("moe")
+player2 = Player.new("larry", 60)
+player3 = Player.new("curly", 125)
+player4 = Player.new("shemp", 90)
 
-puts say_hello("larry", 60)
-puts say_hello("curly", 125)
-puts say_hello("moe")
-puts say_hello("shemp", 90)
+knuckleheads = Game.new("Knuckleheads")
 
-current_time = Time.new
-formatted_time = current_time.strftime("%A %m/%d/%Y at %l:%M:%S%p")
+knuckleheads.add_player(player1)
+knuckleheads.add_player(player2)
+knuckleheads.add_player(player3)
 
-puts "The game started on #{formatted_time}"
+knuckleheads.play
+
+
+player5 = Player.new("alvin", 100)
+player6 = Player.new("simon", 60)
+player7 = Player.new("theodore", 125)
+
+chipmunks = Game.new("Chipmunks")
+
+chipmunks.add_player(player5)
+chipmunks.add_player(player6)
+chipmunks.add_player(player7)
+
+chipmunks.play
+
+# def time
+#   current_time = Time.new
+#   current_time.strftime("%l:%M:%S")
+# end
+
+# current_time = Time.new
+# formatted_time = current_time.strftime("%A %m/%d/%Y at %l:%M:%S%p")
+
+# puts "The game started on #{formatted_time}"

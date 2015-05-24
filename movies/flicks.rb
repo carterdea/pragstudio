@@ -1,14 +1,22 @@
-def weekday
-  current_time = Time.new
-  current_time.strftime("%A")
-end
+require_relative 'movie'
+require_relative 'playlist'
 
-def movie_listing(title, rank=0)
-  "#{weekday.upcase}: #{title.capitalize} has a rank of #{rank}."
-end
+movie1 = Movie.new("goonies", 10)
+movie2 = Movie.new("ghostbusters", 9)
+movie3 = Movie.new("goldfinger")
+movie4 = Movie.new("gremlins", 15)
 
-puts movie_listing("goonies", 10)
-puts movie_listing("ghostbusters", 9)
+playlist1 = Playlist.new("Kermit")
 
-a_title = "goldfinger"
-puts movie_listing(a_title)
+playlist1.add_movie(movie1)
+playlist1.add_movie(movie2)
+playlist1.add_movie(movie3)
+
+
+playlist2 = Playlist.new("Fozzie")
+playlist2.add_movie(movie3)
+playlist2.add_movie(movie4)
+
+playlist1.play
+
+playlist2.play
