@@ -1,4 +1,6 @@
 require_relative 'project'
+require_relative 'collection'
+require_relative 'die'
 
 describe Project do
   before do
@@ -17,14 +19,45 @@ describe Project do
 
   it "Amount increases by $25 when it's add_funds'ed" do
     @project.add_funds
-    @project.amount.should == 125
+    @project.amount.should == @initial_funding + 25
   end
 
   it "Amount decreases by $15 when it's remove_funds'ed" do
     @project.remove_funds
-    @project.amount.should == 85
+    @project.amount.should == @initial_funding - 15
   end
 
+  context do
+    before do
+      @project = Project.new("ABC", 100,100)
+    end
+
+    it "project has raised it's goal" do
+      @project.fully_funded?.should == true
+    end
+
+  end
+
+  context do
+    before do
+      @project = Project.new("ABC", 100, 300)
+      @kickstarter = Collection.new("Kickstarter")
+      @kickstarter.add_project(@project)
+      @rounds = 1
+    end
+
+    # it "adds funds if an even number is rolled" do     // deprecated due to pledges
+    #   Die.any_instance.stub(:roll).and_return(2)
+    #   @kickstarter.request_funding(@rounds)
+    #   @project.amount.should == @initial_funding + 25
+    # end
+
+    # it "removes funds if an odd number is rolled" do
+    #   Die.any_instance.stub(:roll).and_return(5)
+    #   @kickstarter.request_funding(@rounds)
+    #   @project.amount.should == @initial_funding - 15
+    # end
+  end
 
   context do
     before do
@@ -39,5 +72,9 @@ describe Project do
       @project.goal.should == 3000
     end
 
+  end
+
+  before do
+    $stdout = StringIO.new
   end
 end

@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+default_movie_file =
+  File.join(File.dirname(__FILE__), 'movies.csv')
+
+require_relative '../lib/flicks/playlist'
+require_relative '../lib/flicks/movie'
+require_relative '../lib/flicks/movie3d'
+
+# movie1 = Movie.new("goonies", 10)
+# movie2 = Movie.new("ghostbusters", 9)
+# movie3 = Movie.new("goldfinger")
+# movie4 = Movie.new("gremlins", 15)
+# movie3d = Movie3d.new('glee', 5, 20)
+
+playlist = Flicks::Playlist.new("Kermit")
+playlist.load(ARGV.shift || default_movie_file)
+# playlist.add_movie(movie3d)
+
+loop do
+  puts "How many viewings? ('quit' to exit)"
+  answer = gets.chomp.downcase
+  case answer
+    when /^\d+$/
+      playlist.play(answer.to_i)
+    when 'quit', 'exit'
+      playlist.print_stats
+      break
+    else
+      puts "Please enter a number or 'quit'"
+  end
+end
+
+playlist.save
